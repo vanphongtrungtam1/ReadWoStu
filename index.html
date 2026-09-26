@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="VSTEP B1+ Work & Employment reading practice with four passages, reading questions, and B2 paraphrase challenges." />
+  <title>VSTEP B1+ Reading - Work & Employment - Learner Version</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-mode="learner" class="four-passages">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-logos" aria-label="CFL logos">
+        <img class="brand-logo" src="logo-cfl.jpg" alt="CFL logo" />
+        <img class="brand-logo" src="logo-35-years.jpg" alt="35 years logo" />
+      </div>
+      <div class="brand-copy">
+        <div class="version-badge">Learner Version</div>
+        <h1>VSTEP B1+ Reading · Work & Employment</h1>
+        <p>4 passages · 10 reading + 20 paraphrase questions each</p>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <div class="font-controls" role="group" aria-label="Adjust reading and question font size">
+        <span class="font-caption">Be Vietnam Pro</span>
+        <button id="fontDecreaseBtn" class="tool-btn font-tool" type="button" aria-label="Decrease font size" title="Giảm cỡ chữ">A−</button>
+        <output id="fontSizeDisplay" class="font-readout" aria-live="polite" aria-label="Font size">18</output>
+        <button id="fontIncreaseBtn" class="tool-btn font-tool" type="button" aria-label="Increase font size" title="Tăng cỡ chữ">A+</button>
+        <button id="fontResetBtn" class="tool-btn font-tool" type="button" aria-label="Reset font size to 18" title="Cỡ chữ mặc định">↺</button>
+      </div>
+      <button id="guideBtn" class="ghost-btn small-btn icon-only-btn" type="button" aria-label="Guide" title="Guide"><svg class="toolbar-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 10.5v6"></path><path d="M12 7.5h.01"></path></svg></button>
+      <div class="top-tool-group" aria-label="Reading tools">
+        <button id="highlightToggle" class="tool-btn small-btn icon-only-btn" type="button" aria-label="Highlight off" title="Highlight: Off"><svg class="toolbar-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16 9.5-9.5 4 4L8 20H4v-4Z"></path><path d="m12.5 7.5 4 4"></path><path d="M3 21h9"></path></svg></button>
+        <button id="clearHighlightsBtn" class="tool-btn small-btn icon-only-btn" type="button" aria-label="Clear highlights" title="Clear highlights"><svg class="toolbar-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 11-4 4H8L3 15l5-10Z"></path><path d="m11 8 6 6"></path></svg></button>
+        <button id="dictionaryToggle" class="tool-btn small-btn icon-only-btn dictionary-toggle" type="button" aria-label="Dictionary off" title="Dictionary: Off"><svg class="toolbar-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9.8 9a2.35 2.35 0 1 1 3.7 1.92c-.98.7-1.5 1.15-1.5 2.33"></path><path d="M12 17h.01"></path></svg></button>
+      </div>
+      <button id="resetAllBtn" class="ghost-btn small-btn reset-top-btn icon-only-btn" type="button" aria-label="Reset all" title="Reset all"><svg class="toolbar-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4v6h6"></path><path d="M5.5 9A8 8 0 1 1 4 14"></path></svg></button>
+      <div class="exam-card timer-card" role="group" aria-label="Timer">
+        <span id="timerLabel" class="timer-label">Passage 1 timer</span>
+        <strong id="timerDisplay">15:00</strong>
+        <button id="startPauseBtn" class="ghost-btn small-btn timer-icon-btn" type="button" aria-label="Start timer" title="Start timer">▶</button>
+        <button id="resetTimerBtn" class="ghost-btn small-btn timer-icon-btn" type="button" aria-label="Reset timer" title="Reset timer">↻</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="passage-tabs" id="passageTabs" aria-label="Passage selector"></nav>
+
+  <main class="workspace" id="workspace">
+    <section class="reading-pane" aria-label="Reading passage">
+      <div class="pane-toolbar">
+        <div><p class="label">Reading passage</p><h2 id="passageTitle">Passage 1</h2></div>
+      </div>
+      <article id="passageText" class="passage-text"></article>
+    </section>
+
+    <aside class="question-pane" aria-label="Questions">
+      <div class="question-status"><span id="answeredCount">0/30 answered</span><span id="scoreText">Score: --</span></div>
+      <div class="question-toolbar"><div class="question-navigation"><button id="prevPassageBtn" class="ghost-btn" type="button">← Previous</button><button id="nextPassageBtn" class="ghost-btn" type="button">Next →</button></div></div>
+      <form id="questionForm" class="questions" aria-label="Multiple-choice questions"></form>
+      <div class="submit-bar"><button id="checkBtn" type="button" class="primary-btn">Check this passage</button></div>
+      <div id="resultBox" class="result-box" aria-live="polite" hidden></div>
+    </aside>
+  </main>
+
+  <div id="dictPopup" class="dict-popup" hidden role="dialog" aria-label="Vietnamese meaning">
+    <button id="dictCloseBtn" class="dict-close" type="button" aria-label="Close dictionary" title="Close">×</button>
+    <div class="dict-meaning"><span id="dictMeaning"></span></div>
+    <button id="dictSpeakBtn" type="button" class="speak-btn speaker-only-btn" aria-label="Listen to pronunciation" title="Listen">🔊</button>
+  </div>
+
+  <dialog id="guideDialog" class="guide-dialog">
+    <div class="dialog-header"><h2>Reading Guide</h2><button id="closeGuideBtn" class="icon-btn" type="button" aria-label="Close guide">×</button></div>
+    <div class="guide-content">
+      <h3>How to use this version</h3>
+      <ol>
+        <li>Use <strong>A− / A+</strong> to adjust the passage and question text from 16 to 36. The font is <strong>Be Vietnam Pro</strong>; ↺ returns it to 18.</li>
+        <li>Each passage has its own <strong>15-minute timer</strong>. The timer state is saved automatically in this browser. Switching passages pauses the previous timer. When time runs out, you may continue practising.</li>
+        <li>Turn on <strong>Highlight</strong>, then select exactly the letters, word, or phrase you want.</li>
+        <li>Turn on <strong>? Dictionary</strong> and click <strong>any English word</strong> in the reading, questions, or answer choices. The popup shows the Vietnamese meaning and a speaker button for pronunciation. Common lesson vocabulary works offline; other words require an internet connection. Pronunciation depends on voices available in your browser.</li>
+        <li><strong>Check this passage</strong> reports Correct/Incorrect for all 10 Reading Questions and 20 B2 Paraphrase Challenge items without revealing the answer key.</li>
+      </ol>
+      <p>Paragraphs are labelled P1, P2, P3… Each passage contains 10 Reading Questions followed by a 20-item B2 Paraphrase Challenge. Switch between the four tabs; your answers are saved separately for each passage.</p>
+    </div>
+  </dialog>
+  <noscript><p>Vui lòng bật JavaScript để mở bài đọc và làm câu hỏi.</p></noscript>
+  <script src="script.js"></script>
+</body>
+</html>
